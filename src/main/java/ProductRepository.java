@@ -2,6 +2,11 @@ public class ProductRepository {
     private Product[] products = new Product[0];
 
     public void add(Product product) {
+        Product foundProduct = findById(product.id);
+        if (foundProduct != null) {
+            throw new AlreadyExistsException(product.id);
+        }
+
         Product[] tmp = new Product[products.length + 1];
         for (int i = 0; i < products.length; i++) {
             tmp[i] = products[i];
